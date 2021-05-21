@@ -309,7 +309,7 @@ Matrix Matrix::div_cells(bool& possibility_work)
         }
 
         // умова рекурсії (поділ матриці відділяючи по лівому нижньмо краю на один доки не дійдем до чотирьох матриць роз 1)
-        if (A11.size_column > 2)
+        if (A11.size_column > 1)
         {
             Matrix A11_i = A11.div_cells(possibility_work);			// виклик рекурсії для знаходження оберненої до A11 допоки вона не стане розміру 1
 
@@ -388,7 +388,7 @@ Matrix Matrix::div_cells(bool& possibility_work)
 
             if (possibility_work)						// перевірка можливості здійснення операції
             {
-                Matrix A11_i = inversion_order2(A11);
+                Matrix A11_i = inversion_order1(A11);
                 Matrix X = A11_i * A12;
                 Matrix Y = A21 * A11_i;
                 Matrix Q = A22 - (Y * A12);

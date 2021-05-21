@@ -121,11 +121,28 @@ void MainWindow::on_pushButton_2_clicked()
      {
          int size = str_size.toInt();
          bool corect_date = true;
+         bool is_empty = false;
+
+         for (int i = 0; i < size; i++)
+         {
+             for (int j = 0; j < size; j++)
+             {
+                 if ((ui -> tableWidget -> item(i,j) -> text()).isNull())           //
+                 {
+                     is_empty = true;
+                 }
+             }
+         }
+
+      if (!is_empty)                        //
+      {
+
          for (int i = 0; i < size; i++)
          {
              for (int j =0; j < size; j++)
              {
-                 QString element = ui -> tableWidget -> item(i,j) -> text();
+                 QString element = "";
+                 element = ui -> tableWidget -> item(i,j) -> text();
                  for (int k = 0; k < element.length() ; k++)
                  {
                    if ( !((k == 0 && element[k] == '-') || element[k].isDigit() || (element[k] == '.')) )
@@ -133,9 +150,10 @@ void MainWindow::on_pushButton_2_clicked()
                        corect_date = false;
                    }
                  }
+
              }
          }
-         if (corect_date)
+         if (corect_date && !is_empty)
          {
              Matrix A(size);
              for (int i = 0; i < size; i++)
@@ -166,28 +184,32 @@ void MainWindow::on_pushButton_2_clicked()
                      }
                 }
                 else
-                {
-                    bool possibilyty_work;
-                    Matrix B = A.div_cells(possibilyty_work);
-                    if (possibilyty_work)
+                    if (ui -> radioButton_2 -> isChecked())
                     {
-                        for (int i =0; i < size ; i++ )
+                        bool possibilyty_work;
+                        Matrix B = A.div_cells(possibilyty_work);
+                        if (possibilyty_work)
                         {
-                            for (int j = 0; j < size; j++)
+                            for (int i =0; i < size ; i++ )
                             {
-                                QString number = QString::number(B.get_element(i, j));
-                                ui-> tableWidget_2 -> setRowCount(size);
-                                ui-> tableWidget_2 -> setColumnCount(size);
-                                ui -> tableWidget_2 -> setItem(i,j, new QTableWidgetItem(number));
+                                for (int j = 0; j < size; j++)
+                                {
+                                    QString number = QString::number(B.get_element(i, j));
+                                    ui-> tableWidget_2 -> setRowCount(size);
+                                    ui-> tableWidget_2 -> setColumnCount(size);
+                                    ui -> tableWidget_2 -> setItem(i,j, new QTableWidgetItem(number));
+                                }
                             }
+                        }
+                        else
+                        {
+                            QMessageBox:: information(this, "Неможливо виконанати обернення", "Не можливо обернути дану матрицю методом розбиття на клітки, використайте інший метод");
                         }
                     }
                     else
                     {
-                         QMessageBox:: information(this, "Неможливо виконанати обернення", "Не можливо обернути дану матрицю методом розбиття на клітки, використайте інший метод");
+                         QMessageBox:: information(this, "Помилка", "Виберіть метод обернення матриці");
                     }
-
-                }
              }
              else
              {
@@ -198,6 +220,11 @@ void MainWindow::on_pushButton_2_clicked()
           {
                QMessageBox:: warning(this, "Помилка", "Некоректно введені дані");
           }
+      }
+      else
+      {
+          QMessageBox:: warning(this, "Помилка", "Введіть значення елементів матриці");
+      }
      }
      else
      {
