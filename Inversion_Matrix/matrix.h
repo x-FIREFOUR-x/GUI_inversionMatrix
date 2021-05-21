@@ -21,6 +21,9 @@ public:
     Matrix(int, int);		// конструктор довільної матриці
     ~Matrix();				// деструктор
     Matrix(const Matrix&);	// конструктор копіювання
+    void set_element(int line, int column, float date);
+    float get_element(int line, int column);
+
     void console_read();
     void file_read(string);
     void console_write();

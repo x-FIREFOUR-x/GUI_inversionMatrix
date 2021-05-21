@@ -43,6 +43,15 @@ Matrix::Matrix(const Matrix& origin)
 
 }
 
+void  Matrix::set_element(int line, int column, float date)
+{
+    ptr_matrix[line][column] = date;
+}
+float  Matrix::get_element(int line, int column)
+{
+    return ptr_matrix[line][column];
+}
+
 void Matrix::console_read()
 {
     for (int i = 0; i < size_line; i++)

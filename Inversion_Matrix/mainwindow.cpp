@@ -102,3 +102,107 @@ QString str_lim_max = ui -> lineEdit_3 -> text();
     }
 }
 
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    QString str_size = ui -> lineEdit -> text();
+
+        bool is_digit = true;
+        for (int i =0; i < str_size.length(); i++)
+        {
+            if (!(str_size[i].isDigit()) )
+            {
+                is_digit = false;
+                break;
+            }
+        }
+
+     if (str_size.toInt() > 0  && is_digit )
+     {
+         int size = str_size.toInt();
+         bool corect_date = true;
+         for (int i = 0; i < size; i++)
+         {
+             for (int j =0; j < size; j++)
+             {
+                 QString element = ui -> tableWidget -> item(i,j) -> text();
+                 for (int k = 0; k < element.length() ; k++)
+                 {
+                   if ( !((k == 0 && element[k] == '-') || element[k].isDigit() || (element[k] == '.')) )
+                   {
+                       corect_date = false;
+                   }
+                 }
+             }
+         }
+         if (corect_date)
+         {
+             Matrix A(size);
+             for (int i = 0; i < size; i++)
+             {
+                 for (int j = 0; j < size ; j++ )
+                 {
+                     float elem = (ui -> tableWidget -> item(i,j) -> text()).toFloat();
+                     A.set_element(i, j, elem);
+                 }
+             }
+
+             float det = A.determinant();
+             if (det != 0 )
+             {
+                if (ui -> radioButton -> isChecked())
+                {
+
+                     Matrix B = A.Gauss();
+                     for (int i =0; i < size ; i++ )
+                     {
+                         for (int j = 0; j < size; j++)
+                         {
+                             QString number = QString::number(B.get_element(i, j));
+                             ui-> tableWidget_2 -> setRowCount(size);
+                             ui-> tableWidget_2 -> setColumnCount(size);
+                             ui -> tableWidget_2 -> setItem(i,j, new QTableWidgetItem(number));
+                         }
+                     }
+                }
+                else
+                {
+                    bool possibilyty_work;
+                    Matrix B = A.div_cells(possibilyty_work);
+                    if (possibilyty_work)
+                    {
+                        for (int i =0; i < size ; i++ )
+                        {
+                            for (int j = 0; j < size; j++)
+                            {
+                                QString number = QString::number(B.get_element(i, j));
+                                ui-> tableWidget_2 -> setRowCount(size);
+                                ui-> tableWidget_2 -> setColumnCount(size);
+                                ui -> tableWidget_2 -> setItem(i,j, new QTableWidgetItem(number));
+                            }
+                        }
+                    }
+                    else
+                    {
+                         QMessageBox:: information(this, "Неможливо виконанати обернення", "Не можливо обернути дану матрицю методом розбиття на клітки, використайте інший метод");
+                    }
+
+                }
+             }
+             else
+             {
+                 QMessageBox:: information(this, "Неможливо виконанати обернення", "Не можливо обернути дану матрицю, бо вона є виродженою");
+             }
+          }
+          else
+          {
+               QMessageBox:: warning(this, "Помилка", "Некоректно введені дані");
+          }
+     }
+     else
+     {
+         QMessageBox:: warning(this, "Помилка", "Початкова матриця не введена");
+     }
+
+}
+
