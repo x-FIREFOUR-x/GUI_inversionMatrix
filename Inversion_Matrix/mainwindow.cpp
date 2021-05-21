@@ -127,7 +127,7 @@ void MainWindow::on_pushButton_2_clicked()
          {
              for (int j = 0; j < size; j++)
              {
-                 if ((ui -> tableWidget -> item(i,j) -> text()).isNull())           //
+                 if (ui -> tableWidget -> item(i,j) == NULL)           //
                  {
                      is_empty = true;
                  }
