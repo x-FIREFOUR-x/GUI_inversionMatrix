@@ -6,6 +6,7 @@
 #include <QString>
 #include <QTableWidget>
 #include <QLabel>
+#include <cmath>
 #include "matrix.h"
 
 

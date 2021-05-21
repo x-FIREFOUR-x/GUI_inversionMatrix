@@ -168,48 +168,68 @@ void MainWindow::on_pushButton_2_clicked()
              float det = A.determinant();
              if (det != 0 )
              {
-                if (ui -> radioButton -> isChecked())
+                QString str_round_lengs = ui -> lineEdit_4 -> text();
+                bool digit_round = true;
+                for (int i = 0; i < str_round_lengs.length(); i++)
                 {
-
-                     Matrix B = A.Gauss();
-                     for (int i =0; i < size ; i++ )
-                     {
-                         for (int j = 0; j < size; j++)
-                         {
-                             QString number = QString::number(B.get_element(i, j));
-                             ui-> tableWidget_2 -> setRowCount(size);
-                             ui-> tableWidget_2 -> setColumnCount(size);
-                             ui -> tableWidget_2 -> setItem(i,j, new QTableWidgetItem(number));
-                         }
-                     }
-                }
-                else
-                    if (ui -> radioButton_2 -> isChecked())
+                    if (!str_round_lengs[i].isDigit())
                     {
-                        bool possibilyty_work;
-                        Matrix B = A.div_cells(possibilyty_work);
-                        if (possibilyty_work)
+                        digit_round = false;
+                    }
+                }
+
+                if (digit_round && str_round_lengs != "")
+                {
+                    int round_lengs = str_round_lengs.toInt();
+                    if (ui -> radioButton -> isChecked())
+                    {
+
+                         Matrix B = A.Gauss();
+                         for (int i =0; i < size ; i++ )
+                         {
+                             for (int j = 0; j < size; j++)
+                             {
+                                 float num = round(B.get_element(i, j) * pow(10,round_lengs)) / pow(10,round_lengs) ;
+                                 QString number = QString::number(num);
+                                 ui-> tableWidget_2 -> setRowCount(size);
+                                 ui-> tableWidget_2 -> setColumnCount(size);
+                                 ui -> tableWidget_2 -> setItem(i,j, new QTableWidgetItem(number));
+                             }
+                         }
+                    }
+                    else
+                        if (ui -> radioButton_2 -> isChecked())
                         {
-                            for (int i =0; i < size ; i++ )
+                            bool possibilyty_work;
+                            Matrix B = A.div_cells(possibilyty_work);
+                            if (possibilyty_work)
                             {
-                                for (int j = 0; j < size; j++)
+                                for (int i =0; i < size ; i++ )
                                 {
-                                    QString number = QString::number(B.get_element(i, j));
-                                    ui-> tableWidget_2 -> setRowCount(size);
-                                    ui-> tableWidget_2 -> setColumnCount(size);
-                                    ui -> tableWidget_2 -> setItem(i,j, new QTableWidgetItem(number));
+                                    for (int j = 0; j < size; j++)
+                                    {
+                                        float num = round(B.get_element(i, j) * pow(10,round_lengs)) / pow(10,round_lengs) ;
+                                        QString number = QString::number(num);
+                                        ui-> tableWidget_2 -> setRowCount(size);
+                                        ui-> tableWidget_2 -> setColumnCount(size);
+                                        ui -> tableWidget_2 -> setItem(i,j, new QTableWidgetItem(number));
+                                    }
                                 }
+                            }
+                            else
+                            {
+                                QMessageBox:: information(this, "Неможливо виконанати обернення", "Не можливо обернути дану матрицю методом розбиття на клітки, використайте інший метод");
                             }
                         }
                         else
                         {
-                            QMessageBox:: information(this, "Неможливо виконанати обернення", "Не можливо обернути дану матрицю методом розбиття на клітки, використайте інший метод");
+                             QMessageBox:: information(this, "Помилка", "Виберіть метод обернення матриці");
                         }
-                    }
-                    else
-                    {
-                         QMessageBox:: information(this, "Помилка", "Виберіть метод обернення матриці");
-                    }
+                }
+                else
+                {
+                    QMessageBox:: warning(this, "Помилка", "Введіть кількість знаків після коми");
+                }
              }
              else
              {
