@@ -1,18 +1,18 @@
 #include "matrix.h"
 
-Matrix::Matrix(int s)
+Matrix::Matrix(int size)
 {
-    size_line = s;			// присвоєння значення кількості рядків
-    size_column = s;		// присвоєння значення кількості стовбців
+    size_line = size;			// присвоєння значення кількості рядків
+    size_column = size;		// присвоєння значення кількості стовбців
 
     ptr_matrix = new float* [size_line];		// виділення пам'яті для матриці
     for (int i = 0; i < size_line; i++)
         ptr_matrix[i] = new float[size_column];
 }
-Matrix::Matrix(int l, int c)
+Matrix::Matrix(int line, int column)
 {
-    size_line = l;			// присвоєння значення кількості рядків
-    size_column = c;		// присвоєння значення кількості стовбців
+    size_line = line;			// присвоєння значення кількості рядків
+    size_column = column;		// присвоєння значення кількості стовбців
 
     ptr_matrix = new float* [size_line];		// виділення пам'яті для матриці
     for (int i = 0; i < size_line; i++)

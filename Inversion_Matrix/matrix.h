@@ -24,14 +24,12 @@ public:
     void set_element(int line, int column, float date);
     float get_element(int line, int column);
 
-    void random(int min, int max);		// випадкова генерація елементів матриці
-
     float determinant();		// отримання визначника матриці
     Matrix Gauss();				// обернення матриці методом Гауса
     Matrix div_cells(bool& possibility_work);			// обернення матриці методом розбиття на клітинки
 
-    static Matrix inversion_order2(Matrix);				// обернення матриці порядку 2
-    static Matrix inversion_order1(Matrix);				// обернення матриці порядку 1
+    Matrix inversion_order2(Matrix);				// обернення матриці порядку 2
+    Matrix inversion_order1(Matrix);				// обернення матриці порядку 1
 
     Matrix operator-(const Matrix);
     Matrix operator+(const Matrix);
