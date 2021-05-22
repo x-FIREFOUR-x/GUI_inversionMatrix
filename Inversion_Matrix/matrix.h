@@ -24,11 +24,6 @@ public:
     void set_element(int line, int column, float date);
     float get_element(int line, int column);
 
-    void console_read();
-    void file_read(string);
-    void console_write();
-    void file_write(string);
-
     void random(int min, int max);		// випадкова генерація елементів матриці
 
     float determinant();		// отримання визначника матриці
