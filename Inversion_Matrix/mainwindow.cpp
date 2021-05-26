@@ -39,32 +39,15 @@ QString str_lim_max = ui -> lineEdit_3 -> text();
 
     bool correct_size = check_correct_size();
 
-    bool is_digit_lims = true;
-    for (int i =0; i < str_lim_min.length(); i++)
-    {
-        if (!((str_lim_min[i].isDigit()) || (i == 0 && str_lim_min[i] == '-' && str_lim_min.length() > 1 ) ))
-        {
-            is_digit_lims = false;
-            break;
-        }
-    }
-    if (is_digit_lims)
-        for (int i =0; i < str_lim_max.length(); i++)
-        {
-            if (!((str_lim_max[i].isDigit()) || (i == 0 && str_lim_max[i] == '-' && str_lim_max.length() > 1 ) ))
-            {
-                is_digit_lims = false;
-                break;
-            }
-        }
-
     if (correct_size && str_size != "")
     {
         int lim_min, lim_max;
         lim_min = str_lim_min.toInt();
         lim_max = str_lim_max.toInt();
 
-        if (is_digit_lims && str_lim_min != ""  && str_lim_max != "" && lim_min <= lim_max)
+        bool correct_limits = check_correct_limits();
+
+        if (correct_limits)
         {
             int size = str_size.toInt();
             for (int i = 0; i < size; i++ )
@@ -279,4 +262,46 @@ bool MainWindow::check_correct_size()
    }
 
    return correct;
+}
+
+bool MainWindow::check_correct_limits()
+{
+    bool correct;
+
+    QString str_lim_min = ui -> lineEdit_2 -> text();
+    QString str_lim_max = ui -> lineEdit_3 -> text();
+
+    bool is_digit_lims = true;
+    for (int i =0; i < str_lim_min.length(); i++)
+    {
+        if (!((str_lim_min[i].isDigit()) || (i == 0 && str_lim_min[i] == '-' && str_lim_min.length() > 1 ) ))
+        {
+            is_digit_lims = false;
+            break;
+        }
+    }
+    if (is_digit_lims)
+        for (int i =0; i < str_lim_max.length(); i++)
+        {
+            if (!((str_lim_max[i].isDigit()) || (i == 0 && str_lim_max[i] == '-' && str_lim_max.length() > 1 ) ))
+            {
+                is_digit_lims = false;
+                break;
+            }
+        }
+
+    int lim_min = str_lim_min.toInt();
+    int lim_max = str_lim_max.toInt();
+
+    if (is_digit_lims && str_lim_min != ""  && str_lim_max != "" && lim_min <= lim_max)
+    {
+        correct = true;
+    }
+    else
+    {
+        correct = false;
+    }
+
+
+    return correct;
 }

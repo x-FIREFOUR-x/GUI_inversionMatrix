@@ -44,6 +44,7 @@ private:
 
 public:
     bool check_correct_size();
+    bool check_correct_limits();
 
 };
 #endif // MAINWINDOW_H
