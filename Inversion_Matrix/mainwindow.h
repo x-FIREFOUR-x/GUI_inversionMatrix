@@ -39,17 +39,17 @@ private slots:
     void on_action_2_triggered();       // відкрити файл
 
 private:
-    Ui::MainWindow *ui;
-    QString file_name;              // імя файла
+    Ui::MainWindow *ui;             // вказівник на головне меню
+    QString file_name;              // ім'я файла
 
 public:
-    bool check_correct_size();
-    bool check_correct_limits();
-    bool check_correct_input_matrix();
-    bool check_correcr_len_round();
+    bool check_correct_size();              // перевірка чи в lineEdit введене коректне значення(розмір матриці)
+    bool check_correct_limits();            // перевірка чи в lineEdit_2 і lineEdit_3 введені коректні значення (межі генерації)
+    bool check_correct_input_matrix();      // перевірка чи в TableWidget введена коректно матриця
+    bool check_correcr_len_round();         // перевірка чи в lineEdit_4 введене коректне значення (точність заокруглення)
 
-    Matrix read_matrix(int);
-    void write_matrix(Matrix, int);
+    Matrix read_matrix(int);                // зчитати матрицю з таблиці(GUI) (ввести з екрану)
+    void write_matrix(Matrix, int);         // записати матрицю в таблицю (GUI) (вивести на екран)
 
 };
 #endif // MAINWINDOW_H
