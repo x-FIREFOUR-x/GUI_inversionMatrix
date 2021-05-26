@@ -48,5 +48,7 @@ public:
     bool check_correct_input_matrix();
     bool check_correcr_len_round();
 
+    Matrix read_matrix(int);
+
 };
 #endif // MAINWINDOW_H

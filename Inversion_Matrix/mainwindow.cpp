@@ -87,15 +87,7 @@ void MainWindow::on_pushButton_2_clicked()
 
          if (correct_matrix_date)      // перевірка чи матриця введена коректно
          {
-             Matrix A(size);
-             for (int i = 0; i < size; i++)
-             {
-                 for (int j = 0; j < size ; j++ )
-                 {
-                     float elem = (ui -> tableWidget -> item(i,j) -> text()).toFloat();
-                     A.set_element(i, j, elem);
-                 }
-             }
+             Matrix A = read_matrix(size);
 
              float det = A.determinant();
 
@@ -347,3 +339,18 @@ bool MainWindow::check_correcr_len_round()
     }
     return correct;
 }
+
+ Matrix MainWindow::read_matrix(int size)
+ {
+     Matrix A(size);
+     for (int i = 0; i < size; i++)
+     {
+         for (int j = 0; j < size ; j++ )
+         {
+             float elem = (ui -> tableWidget -> item(i,j) -> text()).toFloat();
+             A.set_element(i, j, elem);
+         }
+     }
+
+     return A;
+ }
