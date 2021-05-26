@@ -46,6 +46,7 @@ public:
     bool check_correct_size();
     bool check_correct_limits();
     bool check_correct_input_matrix();
+    bool check_correcr_len_round();
 
 };
 #endif // MAINWINDOW_H

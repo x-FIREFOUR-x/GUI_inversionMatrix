@@ -101,19 +101,14 @@ void MainWindow::on_pushButton_2_clicked()
 
              if (det != 0 )                     // перевірка чи матрицю можна обернути
              {
-                QString str_round_lengs = ui -> lineEdit_4 -> text();
-                bool digit_round = true;
-                for (int i = 0; i < str_round_lengs.length(); i++)
-                {
-                    if (!str_round_lengs[i].isDigit())
-                    {
-                        digit_round = false;
-                    }
-                }
 
-                if (digit_round && str_round_lengs != "")       // перевірка чи коректно введена точність обчислень
+                bool correct_round = check_correcr_len_round();
+
+                if (correct_round)       // перевірка чи коректно введена точність обчислень
                 {
+                    QString str_round_lengs = ui -> lineEdit_4 -> text();
                     int round_lengs = str_round_lengs.toInt();
+
                     if (ui -> radioButton -> isChecked())           // чи обертати Гаусом
                     {
 
@@ -325,5 +320,30 @@ bool MainWindow::check_correct_input_matrix()
         correct = false;
     }
 
+    return correct;
+}
+
+bool MainWindow::check_correcr_len_round()
+{
+    bool correct;
+
+    QString str_round_lengs = ui -> lineEdit_4 -> text();
+    bool digit_round = true;
+    for (int i = 0; i < str_round_lengs.length(); i++)
+    {
+        if (!str_round_lengs[i].isDigit())
+        {
+            digit_round = false;
+        }
+    }
+
+    if (digit_round && str_round_lengs != "")
+    {
+        correct = true;
+    }
+    else
+    {
+        correct = false;
+    }
     return correct;
 }
