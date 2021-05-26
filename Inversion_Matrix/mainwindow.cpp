@@ -56,7 +56,7 @@ QString str_lim_max = ui -> lineEdit_3 -> text();
                 {
                     QString number = QString::number(rand()%(lim_max - lim_min + 1) + lim_min);
                     ui->tableWidget -> setItem(i,j, new QTableWidgetItem(number));
-                   // input_M.set_element(i, j, number.toFloat());
+
                 }
             }
         }
@@ -302,6 +302,58 @@ bool MainWindow::check_correct_limits()
         correct = false;
     }
 
+
+    return correct;
+}
+
+bool MainWindow::check_correct_input_matrix()
+{
+    bool correct;
+
+    QString str_size = ui -> lineEdit -> text();
+    int size = str_size.toInt();
+    bool corect_date = true;
+    bool is_empty = false;
+
+    for (int i = 0; i < size; i++)
+    {
+        for (int j = 0; j < size; j++)
+        {
+            if (ui -> tableWidget -> item(i,j) == NULL)
+            {
+                is_empty = true;
+            }
+        }
+    }
+
+    if (!is_empty)
+    {
+        for (int i = 0; i < size; i++)
+        {
+            for (int j =0; j < size; j++)
+            {
+                QString element = "";
+                element = ui -> tableWidget -> item(i,j) -> text();
+                for (int k = 0; k < element.length() ; k++)
+                {
+                  if ( !((k == 0 && element[k] == '-') || element[k].isDigit() || (element[k] == '.')) )
+                  {
+                      corect_date = false;
+                  }
+                }
+
+            }
+        }
+    }
+
+    if (!is_empty && corect_date)
+    {
+        correct = true;
+    }
+    else
+    {
+        correct = false;
+    }
 
     return correct;
 }

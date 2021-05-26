@@ -45,6 +45,7 @@ private:
 public:
     bool check_correct_size();
     bool check_correct_limits();
+    bool check_correct_input_matrix();
 
 };
 #endif // MAINWINDOW_H
