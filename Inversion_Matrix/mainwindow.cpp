@@ -131,12 +131,12 @@ void MainWindow::on_pushButton_2_clicked()
                 }
                 else
                 {
-                    QMessageBox:: warning(this, "Помилка", "Введіть кількість знаків після коми");
+                    QMessageBox:: information(this, "Неможливо виконанати обернення", "Не можливо обернути дану матрицю, бо вона є виродженою");
                 }
              }
              else
              {
-                 QMessageBox:: information(this, "Неможливо виконанати обернення", "Не можливо обернути дану матрицю, бо вона є виродженою");
+                 QMessageBox:: warning(this, "Помилка", "Введіть кількість знаків після коми");
              }
           }
           else
