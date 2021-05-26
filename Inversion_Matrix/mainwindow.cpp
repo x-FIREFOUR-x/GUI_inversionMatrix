@@ -82,40 +82,10 @@ void MainWindow::on_pushButton_2_clicked()
      if (correct_size && str_size != "")            // перевірка коректності розміру
      {
          int size = str_size.toInt();
-         bool corect_date = true;
-         bool is_empty = false;
 
-         for (int i = 0; i < size; i++)
-         {
-             for (int j = 0; j < size; j++)
-             {
-                 if (ui -> tableWidget -> item(i,j) == NULL)           //
-                 {
-                     is_empty = true;
-                 }
-             }
-         }
+         bool correct_matrix_date = check_correct_input_matrix();
 
-      if (!is_empty)                        // перевірка чи матриця введена
-      {
-
-         for (int i = 0; i < size; i++)
-         {
-             for (int j =0; j < size; j++)
-             {
-                 QString element = "";
-                 element = ui -> tableWidget -> item(i,j) -> text();
-                 for (int k = 0; k < element.length() ; k++)
-                 {
-                   if ( !((k == 0 && element[k] == '-') || element[k].isDigit() || (element[k] == '.')) )
-                   {
-                       corect_date = false;
-                   }
-                 }
-
-             }
-         }
-         if (corect_date && !is_empty)      // перевірка чи матриця введена коректно
+         if (correct_matrix_date)      // перевірка чи матриця введена коректно
          {
              Matrix A(size);
              for (int i = 0; i < size; i++)
@@ -128,6 +98,7 @@ void MainWindow::on_pushButton_2_clicked()
              }
 
              float det = A.determinant();
+
              if (det != 0 )                     // перевірка чи матрицю можна обернути
              {
                 QString str_round_lengs = ui -> lineEdit_4 -> text();
@@ -200,17 +171,12 @@ void MainWindow::on_pushButton_2_clicked()
           }
           else
           {
-               QMessageBox:: warning(this, "Помилка", "Некоректно введені дані");
+               QMessageBox:: warning(this, "Помилка", "Не введені елементи матриці, або введені не коректно");
           }
-      }
-      else
-      {
-          QMessageBox:: warning(this, "Помилка", "Введіть значення елементів матриці");
-      }
      }
      else
      {
-         QMessageBox:: warning(this, "Помилка", "Початкова матриця не введена");
+         QMessageBox:: warning(this, "Помилка", "Розмір і матриця не введені");
      }
 
 }
@@ -237,6 +203,10 @@ void MainWindow::on_action_2_triggered()
 {
 
 }
+
+
+
+
 
 bool MainWindow::check_correct_size()
 {
