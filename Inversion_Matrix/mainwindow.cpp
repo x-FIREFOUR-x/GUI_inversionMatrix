@@ -16,23 +16,17 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_lineEdit_textChanged(const QString &arg1)
 {
-bool is_digit = true;
-    for (int i =0; i < arg1.length(); i++)
-    {
-        if (!(arg1[i].isDigit()))
-        {
-            is_digit = false;
-        }
-    }
 
-    if ((arg1.toInt() >= 0 || arg1 == "") && is_digit )
+    bool correct_size = check_correct_size();
+
+    if (correct_size)
     {
         ui-> tableWidget -> setRowCount(arg1.toInt());
         ui-> tableWidget -> setColumnCount(arg1.toInt());
     }
     else
     {
-        QMessageBox:: warning(this, "Помилка", "Невірно введений розмір матриці, введіть ціле додатнє число");
+        QMessageBox:: warning(this, "Помилка", "Невірно введений розмір матриці, введіть ціле додатнє число не менше 1 і не більше 100");
     }
 }
 
@@ -43,15 +37,7 @@ QString str_size = ui -> lineEdit -> text();
 QString str_lim_min = ui -> lineEdit_2 -> text();
 QString str_lim_max = ui -> lineEdit_3 -> text();
 
-    bool is_digit = true;
-    for (int i =0; i < str_size.length(); i++)
-    {
-        if (!(str_size[i].isDigit()) )
-        {
-            is_digit = false;
-            break;
-        }
-    }
+    bool correct_size = check_correct_size();
 
     bool is_digit_lims = true;
     for (int i =0; i < str_lim_min.length(); i++)
@@ -72,7 +58,7 @@ QString str_lim_max = ui -> lineEdit_3 -> text();
             }
         }
 
-    if (str_size.toInt() >= 0  && is_digit && str_size != "" )
+    if (correct_size && str_size != "")
     {
         int lim_min, lim_max;
         lim_min = str_lim_min.toInt();
@@ -108,17 +94,9 @@ void MainWindow::on_pushButton_2_clicked()
 {
     QString str_size = ui -> lineEdit -> text();
 
-        bool is_digit = true;
-        for (int i =0; i < str_size.length(); i++)
-        {
-            if (!(str_size[i].isDigit()) )
-            {
-                is_digit = false;
-                break;
-            }
-        }
+     bool correct_size = check_correct_size();
 
-     if (str_size.toInt() > 0  && is_digit )            // перевірка коректності розміру
+     if (correct_size && str_size != "")            // перевірка коректності розміру
      {
          int size = str_size.toInt();
          bool corect_date = true;
@@ -291,7 +269,7 @@ bool MainWindow::check_correct_size()
         }
     }
    int size = str_size.toInt();
-   if (is_digit && size > 0 && size <= 100)
+   if ((is_digit && size > 0 && size <= 100)|| str_size == "")
    {
         correct = true;
    }
