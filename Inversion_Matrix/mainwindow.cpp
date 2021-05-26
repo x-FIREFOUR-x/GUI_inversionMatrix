@@ -87,35 +87,27 @@ void MainWindow::on_pushButton_2_clicked()
 
          if (correct_matrix_date)      // перевірка чи матриця введена коректно
          {
-             Matrix A = read_matrix(size);
+             bool correct_round = check_correcr_len_round();
 
-             float det = A.determinant();
-
-             if (det != 0 )                     // перевірка чи матрицю можна обернути
+             if (correct_round)        // перевірка чи коректно введена точність обчислень
              {
+                Matrix A = read_matrix(size);
 
-                bool correct_round = check_correcr_len_round();
+                float det = A.determinant();
 
-                if (correct_round)       // перевірка чи коректно введена точність обчислень
+
+                if (det != 0 )      // перевірка чи матрицю можна обернути
                 {
                     QString str_round_lengs = ui -> lineEdit_4 -> text();
                     int round_lengs = str_round_lengs.toInt();
 
                     if (ui -> radioButton -> isChecked())           // чи обертати Гаусом
                     {
-
                          Matrix B = A.Gauss();
-                         for (int i =0; i < size ; i++ )
-                         {
-                             for (int j = 0; j < size; j++)
-                             {
-                                 float num = round(B.get_element(i, j) * pow(10,round_lengs)) / pow(10,round_lengs) ;
-                                 QString number = QString::number(num);
-                                 ui-> tableWidget_2 -> setRowCount(size);
-                                 ui-> tableWidget_2 -> setColumnCount(size);
-                                 ui -> tableWidget_2 -> setItem(i,j, new QTableWidgetItem(number));
-                             }
-                         }
+
+                         B.round_matrix(round_lengs);
+                         write_matrix(B, size);
+
                     }
                     else
                         if (ui -> radioButton_2 -> isChecked())         // чи обертати розбиттям на Клітки
@@ -124,17 +116,8 @@ void MainWindow::on_pushButton_2_clicked()
                             Matrix B = A.div_cells(possibilyty_work);
                             if (possibilyty_work)
                             {
-                                for (int i =0; i < size ; i++ )
-                                {
-                                    for (int j = 0; j < size; j++)
-                                    {
-                                        float num = round(B.get_element(i, j) * pow(10,round_lengs)) / pow(10,round_lengs) ;
-                                        QString number = QString::number(num);
-                                        ui-> tableWidget_2 -> setRowCount(size);
-                                        ui-> tableWidget_2 -> setColumnCount(size);
-                                        ui -> tableWidget_2 -> setItem(i,j, new QTableWidgetItem(number));
-                                    }
-                                }
+                                B.round_matrix(round_lengs);
+                                write_matrix(B, size);
                             }
                             else
                             {
@@ -353,4 +336,21 @@ bool MainWindow::check_correcr_len_round()
      }
 
      return A;
+ }
+
+ void MainWindow::write_matrix(Matrix A, int size)
+ {
+     ui-> tableWidget_2 -> setRowCount(size);
+     ui-> tableWidget_2 -> setColumnCount(size);
+
+     QString number;
+
+     for (int i =0; i < size ; i++ )
+     {
+         for (int j = 0; j < size; j++)
+         {
+             number = QString::number(A.get_element(i,j));
+             ui -> tableWidget_2 -> setItem(i,j, new QTableWidgetItem(number));
+         }
+     }
  }

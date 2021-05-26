@@ -49,6 +49,7 @@ public:
     bool check_correcr_len_round();
 
     Matrix read_matrix(int);
+    void write_matrix(Matrix, int);
 
 };
 #endif // MAINWINDOW_H

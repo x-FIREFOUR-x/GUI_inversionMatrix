@@ -7,6 +7,7 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+#include <cmath>
 using namespace std;
 class Matrix
 {
@@ -21,9 +22,11 @@ public:
     Matrix(int, int);		// конструктор довільної матриці
     ~Matrix();				// деструктор
     Matrix(const Matrix&);	// конструктор копіювання
+
     void set_element(int line, int column, float date);
     float get_element(int line, int column);
 
+    void round_matrix(int);
     float determinant();		// отримання визначника матриці
     Matrix Gauss();				// обернення матриці методом Гауса
     Matrix div_cells(bool& possibility_work);			// обернення матриці методом розбиття на клітинки

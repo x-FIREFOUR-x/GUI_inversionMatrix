@@ -52,6 +52,18 @@ float  Matrix::get_element(int line, int column)
     return ptr_matrix[line][column];
 }
 
+ void Matrix::round_matrix(int round_lengs)
+ {
+     for(int i = 0; i < size_line; i++)
+     {
+         for (int j = 0; j <size_column; j++)
+         {
+            ptr_matrix[i][j] = (round(ptr_matrix[i][j] * pow(10,round_lengs))) / pow(10,round_lengs) ;
+         }
+     }
+ }
+
+
 float Matrix::determinant()
 {
     if (size_line == size_column)
@@ -112,6 +124,10 @@ float Matrix::determinant()
         determinant *= c_det;
 
         return determinant;
+    }
+    else
+    {
+        return 0;
     }
 }
 
