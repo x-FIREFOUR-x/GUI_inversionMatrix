@@ -246,8 +246,32 @@
      <height>26</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>Файл</string>
+    </property>
+    <addaction name="action"/>
+    <addaction name="action_2"/>
+    <addaction name="action_3"/>
+   </widget>
+   <addaction name="menu"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="action">
+   <property name="text">
+    <string>Зберегти як</string>
+   </property>
+  </action>
+  <action name="action_2">
+   <property name="text">
+    <string>Відкрити</string>
+   </property>
+  </action>
+  <action name="action_3">
+   <property name="text">
+    <string> Вийти</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
