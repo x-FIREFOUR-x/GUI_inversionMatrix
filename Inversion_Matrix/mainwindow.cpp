@@ -87,6 +87,7 @@ QString str_lim_max = ui -> lineEdit_3 -> text();
                 {
                     QString number = QString::number(rand()%(lim_max - lim_min + 1) + lim_min);
                     ui->tableWidget -> setItem(i,j, new QTableWidgetItem(number));
+                   // input_M.set_element(i, j, number.toFloat());
                 }
             }
         }
@@ -117,7 +118,7 @@ void MainWindow::on_pushButton_2_clicked()
             }
         }
 
-     if (str_size.toInt() > 0  && is_digit )
+     if (str_size.toInt() > 0  && is_digit )            // перевірка коректності розміру
      {
          int size = str_size.toInt();
          bool corect_date = true;
@@ -134,7 +135,7 @@ void MainWindow::on_pushButton_2_clicked()
              }
          }
 
-      if (!is_empty)                        //
+      if (!is_empty)                        // перевірка чи матриця введена
       {
 
          for (int i = 0; i < size; i++)
@@ -153,7 +154,7 @@ void MainWindow::on_pushButton_2_clicked()
 
              }
          }
-         if (corect_date && !is_empty)
+         if (corect_date && !is_empty)      // перевірка чи матриця введена коректно
          {
              Matrix A(size);
              for (int i = 0; i < size; i++)
@@ -166,7 +167,7 @@ void MainWindow::on_pushButton_2_clicked()
              }
 
              float det = A.determinant();
-             if (det != 0 )
+             if (det != 0 )                     // перевірка чи матрицю можна обернути
              {
                 QString str_round_lengs = ui -> lineEdit_4 -> text();
                 bool digit_round = true;
@@ -178,10 +179,10 @@ void MainWindow::on_pushButton_2_clicked()
                     }
                 }
 
-                if (digit_round && str_round_lengs != "")
+                if (digit_round && str_round_lengs != "")       // перевірка чи коректно введена точність обчислень
                 {
                     int round_lengs = str_round_lengs.toInt();
-                    if (ui -> radioButton -> isChecked())
+                    if (ui -> radioButton -> isChecked())           // чи обертати Гаусом
                     {
 
                          Matrix B = A.Gauss();
@@ -198,7 +199,7 @@ void MainWindow::on_pushButton_2_clicked()
                          }
                     }
                     else
-                        if (ui -> radioButton_2 -> isChecked())
+                        if (ui -> radioButton_2 -> isChecked())         // чи обертати розбиттям на Клітки
                         {
                             bool possibilyty_work;
                             Matrix B = A.div_cells(possibilyty_work);
@@ -259,3 +260,45 @@ void MainWindow::on_action_3_triggered()
    QApplication::quit();
 }
 
+
+void MainWindow::on_action_triggered()
+{
+    file_name = QFileDialog::getSaveFileName(this, tr("Збереження файла"), "D://", tr("Текстовий файл(*.txt)"));
+    QMessageBox::information(this, "",file_name);
+
+    QString str_size =  ui -> lineEdit -> text();
+    ofstream fin;
+    fin.open(file_name.toStdString());
+}
+
+
+void MainWindow::on_action_2_triggered()
+{
+
+}
+
+bool MainWindow::check_correct_size()
+{
+    bool correct;
+
+    QString str_size =  ui -> lineEdit -> text();
+    bool is_digit = true;
+    for (int i =0; i < str_size.length(); i++)
+    {
+        if (!(str_size[i].isDigit()))
+        {
+            is_digit = false;
+        }
+    }
+   int size = str_size.toInt();
+   if (is_digit && size > 0 && size <= 100)
+   {
+        correct = true;
+   }
+   else
+   {
+       correct = false;
+   }
+
+   return correct;
+}
