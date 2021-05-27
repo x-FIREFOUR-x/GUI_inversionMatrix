@@ -165,22 +165,21 @@ void MainWindow::on_action_3_triggered()
 void MainWindow::on_action_triggered()
 {
     file_name = QFileDialog::getSaveFileName(this, tr("Збереження файла"), "D://", tr("Текстовий файл(*.txt)"));
-    //QMessageBox::information(this, "", file_name);
 
-    ofstream fin;
-    fin.open(file_name.toStdString());
+    ofstream fout;
+    fout.open(file_name.toStdString());
 
-    fin << "IM" << "\n";
+    fout << "IM" << "\n";
     int size = ui-> tableWidget -> rowCount();
 
     if (size == 0)
     {
-        fin << size << "\n";
+       fout << size << "\n";
     }
 
     if (size > 0)
     {
-        fin << size << "\n";
+       fout << size << "\n";
 
         for(int i =0; i < size; i++)
         {
@@ -190,32 +189,32 @@ void MainWindow::on_action_triggered()
                 {
                     if (j != 0)
                     {
-                        fin << " " << ui -> tableWidget -> item(i, j) -> text().toStdString();
+                        fout << " " << ui -> tableWidget -> item(i, j) -> text().toStdString();
                     }
                     else
                     {
-                        fin << ui -> tableWidget -> item(i, j) -> text().toStdString();
+                       fout << ui -> tableWidget -> item(i, j) -> text().toStdString();
                     }
                 }
                 else
                 {
                     if (j != 0)
                     {
-                        fin << " " << "*";
+                       fout << " " << "*";
                     }
                     else
                     {
-                        fin << "*";
+                        fout << "*";
                     }
                 }
             }
-            fin << "\n";
+           fout << "\n";
         }
 
         if (inversed)
         {
-            fin << "Inversed" << "\n";
-            fin << ui->lineEdit_4 -> text().toStdString() << "\n";
+           fout << "Inversed" << "\n";
+           fout << ui->lineEdit_4 -> text().toStdString() << "\n";
             for(int i =0; i < size; i++)
             {
                 for (int j = 0; j < size; j++)
@@ -224,31 +223,31 @@ void MainWindow::on_action_triggered()
                     {
                         if (j != 0)
                         {
-                            fin << " " << ui -> tableWidget_2 -> item(i, j) -> text().toStdString();
+                           fout << " " << ui -> tableWidget_2 -> item(i, j) -> text().toStdString();
                         }
                         else
                         {
-                            fin << ui -> tableWidget_2 -> item(i, j) -> text().toStdString();
+                           fout << ui -> tableWidget_2 -> item(i, j) -> text().toStdString();
                         }
                     }
                     else
                     {
                         if (j != 0)
                         {
-                            fin << " " << "*";
+                            fout << " " << "*";
                         }
                         else
                         {
-                            fin << "*";
+                            fout << "*";
                         }
                     }
                 }
-                fin << "\n";
+                fout << "\n";
             }
         }
         else
         {
-           fin << "noInversed";
+           fout << "noInversed";
         }
 
     }
@@ -257,6 +256,89 @@ void MainWindow::on_action_triggered()
 
 void MainWindow::on_action_2_triggered()
 {
+    file_name = QFileDialog::getOpenFileName(this, tr("Відкрити файл"), "D://", tr("Текстовий файл(*.txt)"));
+
+    ifstream fin;
+    fin.open(file_name.toStdString());
+    string cod_im;
+    fin >> cod_im;
+
+    if (cod_im == "IM")
+    {
+        int size;
+        fin >> size;
+        if (size > 0)
+        {
+            QString qstr_size = QString::fromUtf8(to_string(size));
+            ui -> lineEdit -> setText(qstr_size);
+            ui-> tableWidget -> setRowCount(size);
+            ui-> tableWidget -> setColumnCount(size);
+            string str_element;
+
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    fin >> str_element;
+                    if (str_element != "*")
+                    {
+                        QString element = QString::fromUtf8(str_element);
+                        ui -> tableWidget -> setItem(i,j, new QTableWidgetItem(element));
+                    }
+                    else
+                    {
+                        ui -> tableWidget -> setItem(i,j, new QTableWidgetItem(""));
+                    }
+                }
+            }
+
+            ui-> tableWidget_2 -> setRowCount(0);
+            ui-> tableWidget_2 -> setColumnCount(0);
+
+            string is_inversed;
+            fin >> is_inversed;
+            if (is_inversed == "Inversed")
+            {
+                string len_round;
+                fin >> len_round;
+                QString qstr_element = QString::fromUtf8(len_round);
+                ui -> lineEdit_4 -> setText(qstr_element);
+
+                ui-> tableWidget_2 -> setRowCount(size);
+                ui-> tableWidget_2 -> setColumnCount(size);
+
+                for (int i = 0; i < size; i++)
+                {
+                    for (int j = 0; j < size; j++)
+                    {
+                        fin >> str_element;
+                        if (str_element != "*")
+                        {
+                            QString element = QString::fromUtf8(str_element);
+                            ui -> tableWidget_2 -> setItem(i,j, new QTableWidgetItem(element));
+                        }
+                        else
+                        {
+                            ui -> tableWidget_2 -> setItem(i,j, new QTableWidgetItem(""));
+                        }
+                    }
+                }
+            }
+        }
+        else
+            if (size == 0)
+            {
+                ui -> lineEdit -> setText("");
+                ui-> tableWidget -> setRowCount(size);
+                ui-> tableWidget -> setColumnCount(size);
+                ui-> tableWidget_2 -> setRowCount(size);
+                ui-> tableWidget_2 -> setColumnCount(size);
+            }
+    }
+    else
+    {
+        QMessageBox::information(this, "", "Файл " + file_name + " не є файлом даної програми");
+    }
 
 }
 
