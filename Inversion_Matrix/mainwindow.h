@@ -41,6 +41,7 @@ private slots:
 private:
     Ui::MainWindow *ui;             // вказівник на головне меню
     QString file_name;              // ім'я файла
+    bool inversed = false;                  // чи користувач опернув матрицю
 
 public:
     bool check_correct_size();              // перевірка чи в lineEdit введене коректне значення(розмір матриці)

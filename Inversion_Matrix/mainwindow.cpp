@@ -23,6 +23,7 @@ void MainWindow::on_lineEdit_textChanged(const QString &arg1)
     {
         ui-> tableWidget -> setRowCount(arg1.toInt());
         ui-> tableWidget -> setColumnCount(arg1.toInt());
+        inversed = false;
     }
     else
     {
@@ -108,6 +109,8 @@ void MainWindow::on_pushButton_2_clicked()
                          B.round_matrix(round_lengs);
                          write_matrix(B, size);
 
+                         inversed = true;
+
                     }
                     else
                         if (ui -> radioButton_2 -> isChecked())         // чи обертати розбиттям на Клітки
@@ -118,6 +121,7 @@ void MainWindow::on_pushButton_2_clicked()
                             {
                                 B.round_matrix(round_lengs);
                                 write_matrix(B, size);
+                                inversed = true;
                             }
                             else
                             {
@@ -161,11 +165,93 @@ void MainWindow::on_action_3_triggered()
 void MainWindow::on_action_triggered()
 {
     file_name = QFileDialog::getSaveFileName(this, tr("Збереження файла"), "D://", tr("Текстовий файл(*.txt)"));
-    QMessageBox::information(this, "",file_name);
+    //QMessageBox::information(this, "", file_name);
 
-    QString str_size =  ui -> lineEdit -> text();
     ofstream fin;
     fin.open(file_name.toStdString());
+
+    fin << "IM" << "\n";
+    int size = ui-> tableWidget -> rowCount();
+
+    if (size == 0)
+    {
+        fin << size << "\n";
+    }
+
+    if (size > 0)
+    {
+        fin << size << "\n";
+
+        for(int i =0; i < size; i++)
+        {
+            for (int j = 0; j < size; j++)
+            {
+                if (ui -> tableWidget -> item(i, j) != NULL && ui -> tableWidget -> item(i, j) -> text() != "")
+                {
+                    if (j != 0)
+                    {
+                        fin << " " << ui -> tableWidget -> item(i, j) -> text().toStdString();
+                    }
+                    else
+                    {
+                        fin << ui -> tableWidget -> item(i, j) -> text().toStdString();
+                    }
+                }
+                else
+                {
+                    if (j != 0)
+                    {
+                        fin << " " << "*";
+                    }
+                    else
+                    {
+                        fin << "*";
+                    }
+                }
+            }
+            fin << "\n";
+        }
+
+        if (inversed)
+        {
+            fin << "Inversed" << "\n";
+            fin << ui->lineEdit_4 -> text().toStdString() << "\n";
+            for(int i =0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    if (ui -> tableWidget_2 -> item(i, j) != NULL && ui -> tableWidget_2 -> item(i, j) ->text() != "")
+                    {
+                        if (j != 0)
+                        {
+                            fin << " " << ui -> tableWidget_2 -> item(i, j) -> text().toStdString();
+                        }
+                        else
+                        {
+                            fin << ui -> tableWidget_2 -> item(i, j) -> text().toStdString();
+                        }
+                    }
+                    else
+                    {
+                        if (j != 0)
+                        {
+                            fin << " " << "*";
+                        }
+                        else
+                        {
+                            fin << "*";
+                        }
+                    }
+                }
+                fin << "\n";
+            }
+        }
+        else
+        {
+           fin << "noInversed";
+        }
+
+    }
 }
 
 
