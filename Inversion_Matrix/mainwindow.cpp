@@ -23,6 +23,8 @@ void MainWindow::on_lineEdit_textChanged(const QString &arg1)
     {
         ui-> tableWidget -> setRowCount(arg1.toInt());
         ui-> tableWidget -> setColumnCount(arg1.toInt());
+        ui-> tableWidget_2 -> setRowCount(0);
+        ui-> tableWidget_2 -> setColumnCount(0);
         inversed = false;
     }
     else
@@ -167,11 +169,20 @@ void MainWindow::on_action_triggered()
     file_name = QFileDialog::getSaveFileName(this, tr("Збереження файла"), "D://", tr("Текстовий файл(*.txt)"));
     MainWindow::write_file();
 
+    if (file_name != "")
+    {
+         QMessageBox:: information(this, "Збережено", "Файл " + file_name + " успішно збережений" );
+    }
+
 }
 
 void MainWindow::on_action_4_triggered()
 {
     MainWindow::write_file();
+    if (file_name != "")
+    {
+         QMessageBox:: information(this, "Збережено", "Файл " + file_name + " успішно перезаписаний" );
+    }
 }
 
 void MainWindow::on_action_2_triggered()
@@ -254,11 +265,12 @@ void MainWindow::on_action_2_triggered()
                 ui-> tableWidget_2 -> setRowCount(size);
                 ui-> tableWidget_2 -> setColumnCount(size);
             }
+        QMessageBox::information(this, "Відкрито", "Файл " + file_name + " успішно відкритий");
     }
     else
-        //if (file_name != "")
+        if (file_name != "")
         {
-            QMessageBox::information(this, "", "Файл " + file_name + " не є файлом даної програми");
+            QMessageBox::warning(this, "Неможливо відкрити", "Файл " + file_name + " не вдалося відкрити, імовірно він не є файлом даної програми");
         }
 
 }
@@ -412,7 +424,7 @@ bool MainWindow::check_correcr_len_round()
     return correct;
 }
 
- Matrix MainWindow::read_matrix(int size)
+Matrix MainWindow::read_matrix(int size)
  {
      Matrix A(size);
      for (int i = 0; i < size; i++)
@@ -427,7 +439,7 @@ bool MainWindow::check_correcr_len_round()
      return A;
  }
 
- void MainWindow::write_matrix(Matrix A, int size)
+void MainWindow::write_matrix(Matrix A, int size)
  {
      ui-> tableWidget_2 -> setRowCount(size);
      ui-> tableWidget_2 -> setColumnCount(size);
