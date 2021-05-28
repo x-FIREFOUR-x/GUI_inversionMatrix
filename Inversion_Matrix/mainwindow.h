@@ -53,6 +53,7 @@ public:
 
     Matrix read_matrix(int);                // зчитати матрицю з таблиці(GUI) (ввести з екрану)
     void write_matrix(Matrix, int);         // записати матрицю в таблицю (GUI) (вивести на екран)
+    void write_file();                      // запис в файл даних програми
 
 };
 #endif // MAINWINDOW_H
