@@ -34,14 +34,16 @@ private slots:
 
     void on_action_3_triggered();       // вихід з програми
 
-    void on_action_triggered();         // зберегти файл
+    void on_action_triggered();         // зберегти в файл як
 
     void on_action_2_triggered();       // відкрити файл
+
+    void on_action_4_triggered();
 
 private:
     Ui::MainWindow *ui;             // вказівник на головне меню
     QString file_name;              // ім'я файла
-    bool inversed = false;                  // чи користувач опернув матрицю
+    bool inversed = false;          // чи користувач опернув матрицю
 
 public:
     bool check_correct_size();              // перевірка чи в lineEdit введене коректне значення(розмір матриці)

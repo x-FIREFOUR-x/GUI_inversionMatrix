@@ -253,6 +253,94 @@ void MainWindow::on_action_triggered()
     }
 }
 
+void MainWindow::on_action_4_triggered()
+{
+    ofstream fout;
+    fout.open(file_name.toStdString());
+
+    fout << "IM" << "\n";
+    int size = ui-> tableWidget -> rowCount();
+
+    if (size == 0)
+    {
+       fout << size << "\n";
+    }
+
+    if (size > 0)
+    {
+       fout << size << "\n";
+
+        for(int i =0; i < size; i++)
+        {
+            for (int j = 0; j < size; j++)
+            {
+                if (ui -> tableWidget -> item(i, j) != NULL && ui -> tableWidget -> item(i, j) -> text() != "")
+                {
+                    if (j != 0)
+                    {
+                        fout << " " << ui -> tableWidget -> item(i, j) -> text().toStdString();
+                    }
+                    else
+                    {
+                       fout << ui -> tableWidget -> item(i, j) -> text().toStdString();
+                    }
+                }
+                else
+                {
+                    if (j != 0)
+                    {
+                       fout << " " << "*";
+                    }
+                    else
+                    {
+                        fout << "*";
+                    }
+                }
+            }
+           fout << "\n";
+        }
+
+        if (inversed)
+        {
+           fout << "Inversed" << "\n";
+           fout << ui->lineEdit_4 -> text().toStdString() << "\n";
+            for(int i =0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    if (ui -> tableWidget_2 -> item(i, j) != NULL && ui -> tableWidget_2 -> item(i, j) ->text() != "")
+                    {
+                        if (j != 0)
+                        {
+                           fout << " " << ui -> tableWidget_2 -> item(i, j) -> text().toStdString();
+                        }
+                        else
+                        {
+                           fout << ui -> tableWidget_2 -> item(i, j) -> text().toStdString();
+                        }
+                    }
+                    else
+                    {
+                        if (j != 0)
+                        {
+                            fout << " " << "*";
+                        }
+                        else
+                        {
+                            fout << "*";
+                        }
+                    }
+                }
+                fout << "\n";
+            }
+        }
+        else
+        {
+           fout << "noInversed";
+        }
+
+    }
+}
 
 void MainWindow::on_action_2_triggered()
 {
@@ -522,3 +610,6 @@ bool MainWindow::check_correcr_len_round()
          }
      }
  }
+
+
+
