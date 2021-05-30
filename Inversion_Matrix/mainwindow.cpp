@@ -108,28 +108,43 @@ void MainWindow::on_pushButton_2_clicked()
 
                     if (ui -> radioButton -> isChecked())           // чи обертати Гаусом
                     {
+                        clock_t start_time, end_time;
                         int count_iteration;
-                         Matrix B = A.Gauss(count_iteration);
 
-                         B.round_matrix(round_lengs);
-                         write_matrix(B, size);
+                        start_time = clock();
+                        Matrix B = A.Gauss(count_iteration);
+                        end_time = clock();
 
-                         QMessageBox:: information(this, "Статистика", QString::number(count_iteration));
-                         inversed = true;
+                        B.round_matrix(round_lengs);
+                        write_matrix(B, size);
+
+                        inversed = true;
+
+                        stats = count_iteration;
+                        time = end_time - start_time;
+                        use_method = 1;
 
                     }
                     else
                         if (ui -> radioButton_2 -> isChecked())         // чи обертати розбиттям на Клітки
                         {
+                            clock_t start_time, end_time;
                             int level_recursion = 0;
+
                             bool possibilyty_work;
+
+                            start_time = clock();
                             Matrix B = A.div_cells(possibilyty_work, level_recursion);
+                            end_time = clock();
                             if (possibilyty_work)
                             {
                                 B.round_matrix(round_lengs);
                                 write_matrix(B, size);
                                 inversed = true;
-                                QMessageBox:: information(this, "Статистика", QString::number(level_recursion));
+
+                                stats = level_recursion;
+                                time = end_time - start_time;
+                                use_method = 2;
                             }
                             else
                             {
@@ -281,7 +296,24 @@ void MainWindow::on_action_2_triggered()
 
 }
 
+void MainWindow::on_action_5_triggered()
+{
+    QString qstr_stats = QString::number(stats);
+    QString qstr_time = QString::number(time);
+    switch (use_method)
+    {
+        case 0:
+                QMessageBox:: information(this, "Не здійснено обертання", "Ви не обернули жодної матриці тому не можна подивитися статистику роботи метода");
+                break;
+        case 1:
+                QMessageBox:: about(this, "Статистика методу Гауса", "Кількість ітерацій: " + qstr_stats + "\n" + "Час роботи: " + qstr_time + " тактів");
+                break;
+        case 2:
+                QMessageBox:: about(this, "Статистика методу розбиття на клітки", "Глибина рекурсії: " + qstr_stats + "\n" + "Час роботи: " + qstr_time + " тактів");
+                break;
+    }
 
+}
 
 
 
@@ -553,4 +585,10 @@ void MainWindow::write_file()
 
     }
 }
+
+
+
+
+
+
 

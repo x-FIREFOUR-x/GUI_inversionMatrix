@@ -10,6 +10,7 @@
 #include "matrix.h"
 #include <QFileDialog>
 #include <fstream>
+#include <ctime>
 
 
 QT_BEGIN_NAMESPACE
@@ -38,12 +39,17 @@ private slots:
 
     void on_action_2_triggered();       // відкрити файл
 
-    void on_action_4_triggered();
+    void on_action_4_triggered();       // зберегти файл (перезаписати)
+
+    void on_action_5_triggered();       // переглянути статистуку роботи методу
 
 private:
     Ui::MainWindow *ui;             // вказівник на головне меню
     QString file_name;              // ім'я файла
     bool inversed = false;          // чи користувач опернув матрицю
+    int stats = 0;                  // число велечини статистики (кількість ітерацій або глибина рекурсії)
+    int use_method = 0;             // використаний метод (1 - Гауса 2 - Розбитя)
+    clock_t time;                       // час роботи метода
 
 public:
     bool check_correct_size();              // перевірка чи в lineEdit введене коректне значення(розмір матриці)
