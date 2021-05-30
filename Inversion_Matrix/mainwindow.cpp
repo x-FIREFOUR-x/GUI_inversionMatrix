@@ -108,24 +108,28 @@ void MainWindow::on_pushButton_2_clicked()
 
                     if (ui -> radioButton -> isChecked())           // чи обертати Гаусом
                     {
-                         Matrix B = A.Gauss();
+                        int count_iteration;
+                         Matrix B = A.Gauss(count_iteration);
 
                          B.round_matrix(round_lengs);
                          write_matrix(B, size);
 
+                         QMessageBox:: information(this, "Статистика", QString::number(count_iteration));
                          inversed = true;
 
                     }
                     else
                         if (ui -> radioButton_2 -> isChecked())         // чи обертати розбиттям на Клітки
                         {
+                            int level_recursion = 0;
                             bool possibilyty_work;
-                            Matrix B = A.div_cells(possibilyty_work);
+                            Matrix B = A.div_cells(possibilyty_work, level_recursion);
                             if (possibilyty_work)
                             {
                                 B.round_matrix(round_lengs);
                                 write_matrix(B, size);
                                 inversed = true;
+                                QMessageBox:: information(this, "Статистика", QString::number(level_recursion));
                             }
                             else
                             {

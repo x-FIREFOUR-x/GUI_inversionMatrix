@@ -131,9 +131,10 @@ float Matrix::determinant()
     }
 }
 
-Matrix Matrix::Gauss()
+Matrix Matrix::Gauss(int& count_iteration)
 {
     float det = determinant();
+    count_iteration = 0;
 
     if (size_line == size_column && det != 0)
     {
@@ -183,6 +184,7 @@ Matrix Matrix::Gauss()
             {
                 A.ptr_matrix[i][j] = A.ptr_matrix[i][j] / coef;
                 E.ptr_matrix[i][j] = E.ptr_matrix[i][j] / coef;
+                count_iteration += 2;
             }
 
             for (int k = i + 1; k < size; k++)	// рядок від якого віднімають
@@ -192,6 +194,7 @@ Matrix Matrix::Gauss()
                 {
                     A.ptr_matrix[k][z] = A.ptr_matrix[k][z] - (A.ptr_matrix[i][z] * n);
                     E.ptr_matrix[k][z] = E.ptr_matrix[k][z] - (E.ptr_matrix[i][z] * n);
+                    count_iteration += 4;
                 }
 
             }
@@ -206,6 +209,7 @@ Matrix Matrix::Gauss()
                 {
                     A.ptr_matrix[k][z] = A.ptr_matrix[k][z] - A.ptr_matrix[i][z] * n;
                     E.ptr_matrix[k][z] = E.ptr_matrix[k][z] - E.ptr_matrix[i][z] * n;
+                    count_iteration += 4;
                 }
             }
         }
@@ -217,8 +221,9 @@ Matrix Matrix::Gauss()
         return 0;
     }
 }
-Matrix Matrix::div_cells(bool& possibility_work)
+Matrix Matrix::div_cells(bool& possibility_work, int& level_recursion)
 {
+    level_recursion++;
     possibility_work = true;
     float det = determinant();
     if (size_line == size_column && det !=0)
@@ -261,7 +266,7 @@ Matrix Matrix::div_cells(bool& possibility_work)
         // умова рекурсії (поділ матриці відділяючи по лівому нижньмо краю на один доки не дійдем до чотирьох матриць роз 1)
         if (A11.size_column > 1)
         {
-            Matrix A11_i = A11.div_cells(possibility_work);			// виклик рекурсії для знаходження оберненої до A11 допоки вона не стане розміру 1
+            Matrix A11_i = A11.div_cells(possibility_work, level_recursion);			// виклик рекурсії для знаходження оберненої до A11 допоки вона не стане розміру 1
 
             if (possibility_work)			// перевірка можливості здійснення операції
             {
