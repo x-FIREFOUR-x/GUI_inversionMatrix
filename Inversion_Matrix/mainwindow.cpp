@@ -14,6 +14,8 @@ MainWindow::~MainWindow()
 }
 
 
+
+
 void MainWindow::on_lineEdit_textChanged(const QString &arg1)
 {
 
@@ -158,11 +160,13 @@ void MainWindow::on_pushButton_2_clicked()
 }
 
 
+
+
+
 void MainWindow::on_action_3_triggered()
 {
    QApplication::quit();
 }
-
 
 void MainWindow::on_action_triggered()
 {
@@ -230,10 +234,7 @@ void MainWindow::on_action_2_triggered()
             fin >> is_inversed;
             if (is_inversed == "Inversed")
             {
-                string len_round;
-                fin >> len_round;
-                QString qstr_element = QString::fromUtf8(len_round);
-                ui -> lineEdit_4 -> setText(qstr_element);
+               inversed = true;
 
                 ui-> tableWidget_2 -> setRowCount(size);
                 ui-> tableWidget_2 -> setColumnCount(size);
@@ -271,6 +272,7 @@ void MainWindow::on_action_2_triggered()
         if (file_name != "")
         {
             QMessageBox::warning(this, "Неможливо відкрити", "Файл " + file_name + " не вдалося відкрити, імовірно він не є файлом даної програми");
+            file_name = "";
         }
 
 }
@@ -424,6 +426,9 @@ bool MainWindow::check_correcr_len_round()
     return correct;
 }
 
+
+
+
 Matrix MainWindow::read_matrix(int size)
  {
      Matrix A(size);
@@ -506,7 +511,7 @@ void MainWindow::write_file()
         if (inversed)
         {
            fout << "Inversed" << "\n";
-           fout << ui->lineEdit_4 -> text().toStdString() << "\n";
+
             for(int i =0; i < size; i++)
             {
                 for (int j = 0; j < size; j++)
