@@ -64,6 +64,9 @@ QString str_lim_max = ui -> lineEdit_3 -> text();
 
                 }
             }
+            ui-> tableWidget_2 -> setRowCount(0);
+            ui-> tableWidget_2 -> setColumnCount(0);
+            inversed = false;
         }
         else
         {
