@@ -10,7 +10,6 @@
 #include "matrix.h"
 #include <QFileDialog>
 #include <fstream>
-#include <ctime>
 
 
 QT_BEGIN_NAMESPACE
@@ -47,7 +46,8 @@ private:
     Ui::MainWindow *ui;             // вказівник на головне меню
     QString file_name;              // ім'я файла
     bool inversed = false;          // чи користувач опернув матрицю
-    int stats = 0;                  // число велечини статистики (кількість ітерацій або глибина рекурсії)
+    int stats = 0;                  // число велечини що визначає складність статистики (кількість ітерацій)
+    int level_recursion ;              // глибина рекурсії
     int use_method = 0;             // використаний метод (1 - Гауса 2 - Розбитя)
 
 public:

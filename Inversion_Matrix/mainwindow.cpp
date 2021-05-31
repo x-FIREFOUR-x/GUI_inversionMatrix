@@ -108,27 +108,25 @@ void MainWindow::on_pushButton_2_clicked()
 
                     if (ui -> radioButton -> isChecked())           // чи обертати Гаусом
                     {
-                        int count_iteration;
-
-                        Matrix B = A.Gauss(count_iteration);
+                        stats = 0;
+                        Matrix B = A.Gauss(stats);
 
                         B.round_matrix(round_lengs);
                         write_matrix(B, size);
 
                         inversed = true;
 
-                        stats = count_iteration;
                         use_method = 1;
 
                     }
                     else
                         if (ui -> radioButton_2 -> isChecked())         // чи обертати розбиттям на Клітки
                         {
-                            int level_recursion = 0;
-
                             bool possibilyty_work;
+                            level_recursion = 0;
+                            stats = 0;
 
-                            Matrix B = A.div_cells(possibilyty_work, level_recursion);
+                            Matrix B = A.div_cells(possibilyty_work, level_recursion, stats);
 
                             if (possibilyty_work)
                             {
@@ -136,7 +134,6 @@ void MainWindow::on_pushButton_2_clicked()
                                 write_matrix(B, size);
                                 inversed = true;
 
-                                stats = level_recursion;
                                 use_method = 2;
                             }
                             else
@@ -292,6 +289,7 @@ void MainWindow::on_action_2_triggered()
 void MainWindow::on_action_5_triggered()
 {
     QString qstr_stats = QString::number(stats);
+    QString qstr_level = QString::number(level_recursion);
     switch (use_method)
     {
         case 0:
@@ -301,7 +299,7 @@ void MainWindow::on_action_5_triggered()
                 QMessageBox:: about(this, "Статистика методу Гауса", "Кількість ітерацій: " + qstr_stats + "\n" );
                 break;
         case 2:
-                QMessageBox:: about(this, "Статистика методу розбиття на клітки", "Глибина рекурсії: " + qstr_stats + "\n" );
+                QMessageBox:: about(this, "Статистика методу розбиття на клітки", "Глибина рекурсії: " + qstr_level + "\n" + "Складність: " + qstr_stats  + "\n"  );
                 break;
     }
 
