@@ -414,15 +414,48 @@ bool MainWindow::check_correct_input_matrix()
             {
                 QString element = "";
                 element = ui -> tableWidget -> item(i,j) -> text();
+                int num_point = 0;
+                int num_minus = 0;
+                for (int z = 0; z < element.length();z++ )
+                {
+                    if (element[z] == '.')
+                    {
+                        num_point++;
+                    }
+                    if (element[z] == '-')
+                    {
+                        num_minus++;
+                    }
+                }
                 for (int k = 0; k < element.length() ; k++)
                 {
-                  if ( !((k == 0 && element[k] == '-') || element[k].isDigit() || (element[k] == '.')) )
-                  {
-                      corect_date = false;
-                  }
+                    if (element.length() >=2 && k == 0)
+                    {
+                        if ( !(( element[k] == '-' && element[k+1].isDigit() && num_minus == 1) || (element[k].isDigit() )) )
+                        {
+                             corect_date = false;
+                        }
+
+                    }
+                    if (element.length() >=3 && k > 0 && k < element.length()- 1)
+                    {
+                            if ( !((element[k] == '.' && element[k-1].isDigit() && element[k+1].isDigit() && num_point == 1 ) || (element[k].isDigit() )) )
+                            {
+                                corect_date = false;
+                            }
+                    }
+                    if (element.length() == 1 || k == element.length() -1 )
+                    {
+                        if ( !( element[k].isDigit()))
+                        {
+                            corect_date = false;
+                        }
+                    }
+
                 }
 
             }
+
         }
     }
 
