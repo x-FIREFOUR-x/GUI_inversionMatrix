@@ -11,14 +11,13 @@
 using namespace std;
 class Matrix
 {
-    //int size;				// розмір матриці
     int size_line;			// кількість рядків матриці
     int size_column;		// кількість стовбців матриці
     float** ptr_matrix;		// покажчик на матрицю
 
 
 public:
-    static int count;
+    static int count;       // кількість ітерацій
 
     Matrix(int);			// конструктор квадратної матриці
     Matrix(int, int);		// конструктор довільної матриці
@@ -43,6 +42,5 @@ public:
     Matrix operator=(const Matrix&);        // перевизначення оператора присвоєння (присвоєння матриці матриці)
     Matrix operator*(const Matrix&);		// перевизначення оператора множення (множення матриць)
 };
-//
 
 #endif // MATRIX_H

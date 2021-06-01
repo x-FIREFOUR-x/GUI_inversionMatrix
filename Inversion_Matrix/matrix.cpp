@@ -133,9 +133,7 @@ float Matrix::determinant()
 
 Matrix Matrix::Gauss()
 {
-    float det = determinant();
-
-    if (size_line == size_column && det != 0)
+    if (size_line == size_column)
     {
         Matrix A = *this;						// створення обєкта копії вхідної матриці
 
@@ -438,7 +436,6 @@ Matrix Matrix::div_cells(bool& possibility_work, int& level_recursion)
      }
      else
      {
-         cout << endl << "inversion input not correct matrix" << endl;
          return 0;
      }
 }
@@ -453,7 +450,6 @@ Matrix Matrix::div_cells(bool& possibility_work, int& level_recursion)
      }
      else
      {
-         cout << endl << "inversion_1 input not correct matrix" << endl;
          return 0;
      }
  }
@@ -536,7 +532,6 @@ Matrix Matrix::div_cells(bool& possibility_work, int& level_recursion)
      }
      else
      {
-         cout << endl << "multiplicate input not correct matrix" << endl;
          return 0;
      }
  }
