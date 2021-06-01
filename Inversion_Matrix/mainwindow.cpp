@@ -108,6 +108,7 @@ void MainWindow::on_pushButton_2_clicked()
              {
                 Matrix A = read_matrix(size);
 
+                Matrix::count = 0;
                 float det = A.determinant();
 
 
@@ -118,7 +119,6 @@ void MainWindow::on_pushButton_2_clicked()
 
                     if (ui -> radioButton -> isChecked())           // чи обертати Гаусом
                     {
-                        Matrix::count = 0;
                         Matrix B = A.Gauss();
 
                         B.round_matrix(round_lengs);
@@ -134,7 +134,6 @@ void MainWindow::on_pushButton_2_clicked()
                         {
                             bool possibilyty_work;
                             level_recursion = 0;
-                            Matrix::count = 0;
 
                             Matrix B = A.div_cells(possibilyty_work, level_recursion);
 
@@ -310,7 +309,7 @@ void MainWindow::on_action_5_triggered()
                 QMessageBox:: about(this, "Статистика", "Метод Гауса\nКількість ітерацій: " + qstr_stats + "\n" );
                 break;
         case 2:
-                QMessageBox:: about(this, "Статистика", "Метод розбиття на клітки\nГлибина рекурсії: " + qstr_level + "\n" + "Складність: " + qstr_stats  + "\n"  );
+                QMessageBox:: about(this, "Статистика", "Метод розбиття на клітки\nГлибина рекурсії: " + qstr_level + "\n" + "Кількість ітерацій: " + qstr_stats  + "\n"  );
                 break;
     }
 

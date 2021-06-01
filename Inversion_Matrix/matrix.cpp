@@ -80,6 +80,7 @@ float Matrix::determinant()
                 int number = i;		// номер підходящого рядка
                 for (int k = i; k < size_line; k++)		// пошук підходящого рядка
                 {
+                    Matrix::count++;
                     if (A.ptr_matrix[k][i] != 0)
                     {
                         number = k;
@@ -91,6 +92,7 @@ float Matrix::determinant()
                     determinant = 0;
                     break;
                 }
+                Matrix::count++;
                 float* temp;
                 temp = A.ptr_matrix[i];
                 A.ptr_matrix[i] = A.ptr_matrix[number];
@@ -104,6 +106,7 @@ float Matrix::determinant()
             for (int j = 0; j < size_column; j++)		// стовбці (елем рядка i) які теж перебразуються коли роблять 1 на діаг
             {
                 A.ptr_matrix[i][j] = A.ptr_matrix[i][j] / coef;
+                Matrix::count++;
             }
 
             for (int k = i + 1; k < size_line; k++)	// рядок від якого віднімають
@@ -112,6 +115,7 @@ float Matrix::determinant()
                 for (int z = 0; z < size_column; z++)		// стовбці (елементи рядків k, i )
                 {
                     A.ptr_matrix[k][z] = A.ptr_matrix[k][z] - (A.ptr_matrix[i][z] * n);
+                    Matrix::count++;
                 }
 
             }
@@ -120,8 +124,10 @@ float Matrix::determinant()
         for (int i = 0; i < size_line; i++)			// обрахунок визначник як добутка елем гол діагоналі зведеної до трикутної матриці
         {
             determinant *= A.ptr_matrix[i][i];
+            Matrix::count++;
         }
         determinant *= c_det;
+        Matrix::count++;
 
         return determinant;
     }
