@@ -19,6 +19,7 @@ class Matrix
 
 public:
     static int count;
+
     Matrix(int);			// конструктор квадратної матриці
     Matrix(int, int);		// конструктор довільної матриці
     ~Matrix();				// деструктор
@@ -42,6 +43,6 @@ public:
     Matrix operator=(const Matrix&);        // перевизначення оператора присвоєння (присвоєння матриці матриці)
     Matrix operator*(const Matrix&);		// перевизначення оператора множення (множення матриць)
 };
-int Matrix::count = 0;
+//
 
 #endif // MATRIX_H

@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+int Matrix::count = 0;
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -133,7 +135,6 @@ void MainWindow::on_pushButton_2_clicked()
                             bool possibilyty_work;
                             level_recursion = 0;
                             Matrix::count = 0;
-                            //count = 0;
 
                             Matrix B = A.div_cells(possibilyty_work, level_recursion);
 
