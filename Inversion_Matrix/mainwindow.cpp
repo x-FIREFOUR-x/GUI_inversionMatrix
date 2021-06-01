@@ -31,6 +31,11 @@ void MainWindow::on_lineEdit_textChanged(const QString &arg1)
     }
     else
     {
+        ui-> tableWidget -> setRowCount(0);
+        ui-> tableWidget -> setColumnCount(0);
+        ui-> tableWidget_2 -> setRowCount(0);
+        ui-> tableWidget_2 -> setColumnCount(0);
+        inversed = false;
         QMessageBox:: warning(this, "Помилка", "Невірно введений розмір матриці, введіть ціле додатнє число не менше 1 і не більше 100");
     }
 }
@@ -142,6 +147,7 @@ void MainWindow::on_pushButton_2_clicked()
                             else
                             {
                                 QMessageBox:: information(this, "Неможливо виконанати обернення", "Не можливо обернути дану матрицю методом розбиття на клітки, використайте інший метод");
+                                use_method = 0;
                             }
                         }
                         else
@@ -299,10 +305,10 @@ void MainWindow::on_action_5_triggered()
                 QMessageBox:: information(this, "Не здійснено обертання", "Ви не обернули жодної матриці тому не можна подивитися статистику роботи метода");
                 break;
         case 1:
-                QMessageBox:: about(this, "Статистика методу Гауса", "Кількість ітерацій: " + qstr_stats + "\n" );
+                QMessageBox:: about(this, "Статистика", "Метод Гауса\nКількість ітерацій: " + qstr_stats + "\n" );
                 break;
         case 2:
-                QMessageBox:: about(this, "Статистика методу розбиття на клітки", "Глибина рекурсії: " + qstr_level + "\n" + "Складність: " + qstr_stats  + "\n"  );
+                QMessageBox:: about(this, "Статистика", "Метод розбиття на клітки\nГлибина рекурсії: " + qstr_level + "\n" + "Складність: " + qstr_stats  + "\n"  );
                 break;
     }
 

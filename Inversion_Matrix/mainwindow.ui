@@ -117,7 +117,7 @@
     <property name="geometry">
      <rect>
       <x>230</x>
-      <y>10</y>
+      <y>40</y>
       <width>256</width>
       <height>192</height>
      </rect>
@@ -133,7 +133,7 @@
     <property name="geometry">
      <rect>
       <x>230</x>
-      <y>230</y>
+      <y>270</y>
       <width>256</width>
       <height>192</height>
      </rect>
@@ -220,7 +220,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>0</string>
+     <string>2</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_5">
@@ -234,6 +234,32 @@
     </property>
     <property name="text">
      <string>Кількість знаків після коми:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>20</y>
+      <width>101</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Вхідна матриця:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_7">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>250</y>
+      <width>231</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Обернена матриця до вхідної матриці:</string>
     </property>
    </widget>
   </widget>
