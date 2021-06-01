@@ -132,16 +132,17 @@ void MainWindow::on_pushButton_2_clicked()
                         {
                             bool possibilyty_work;
                             level_recursion = 0;
-                            stats = 0;
+                            Matrix::count = 0;
+                            //count = 0;
 
-                            Matrix B = A.div_cells(possibilyty_work, level_recursion, stats);
+                            Matrix B = A.div_cells(possibilyty_work, level_recursion);
 
                             if (possibilyty_work)
                             {
                                 B.round_matrix(round_lengs);
                                 write_matrix(B, size);
                                 inversed = true;
-
+                                stats = Matrix::count;
                                 use_method = 2;
                             }
                             else

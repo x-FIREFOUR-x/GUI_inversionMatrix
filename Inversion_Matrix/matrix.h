@@ -18,6 +18,7 @@ class Matrix
 
 
 public:
+    static int count;
     Matrix(int);			// конструктор квадратної матриці
     Matrix(int, int);		// конструктор довільної матриці
     ~Matrix();				// деструктор
@@ -30,7 +31,7 @@ public:
 
     float determinant();                            // отримання визначника матриці
     Matrix Gauss(int& count_iteration );                                 // обернення матриці методом Гауса
-    Matrix div_cells(bool& possibility_work, int& level_recursion, int& count);       // обернення матриці методом розбиття на клітинки
+    Matrix div_cells(bool& possibility_work, int& level_recursion);       // обернення матриці методом розбиття на клітинки
 
     Matrix inversion_order2(Matrix);				// обернення матриці порядку 2
     Matrix inversion_order1(Matrix);				// обернення матриці порядку 1
@@ -41,6 +42,6 @@ public:
     Matrix operator=(const Matrix&);        // перевизначення оператора присвоєння (присвоєння матриці матриці)
     Matrix operator*(const Matrix&);		// перевизначення оператора множення (множення матриць)
 };
-
+int Matrix::count = 0;
 
 #endif // MATRIX_H

@@ -222,7 +222,7 @@ Matrix Matrix::Gauss(int& count_iteration)
         return 0;
     }
 }
-Matrix Matrix::div_cells(bool& possibility_work, int& level_recursion, int& count)
+Matrix Matrix::div_cells(bool& possibility_work, int& level_recursion)
 {
     level_recursion++;
     possibility_work = true;
@@ -267,7 +267,7 @@ Matrix Matrix::div_cells(bool& possibility_work, int& level_recursion, int& coun
         // умова рекурсії (поділ матриці відділяючи по лівому нижньмо краю на один доки не дійдем до чотирьох матриць роз 1)
         if (A11.size_column > 1)
         {
-            Matrix A11_i = A11.div_cells(possibility_work, level_recursion, count);			// виклик рекурсії для знаходження оберненої до A11 допоки вона не стане розміру 1
+            Matrix A11_i = A11.div_cells(possibility_work, level_recursion);			// виклик рекурсії для знаходження оберненої до A11 допоки вона не стане розміру 1
 
             if (possibility_work)			// перевірка можливості здійснення операції
             {
@@ -446,6 +446,7 @@ Matrix Matrix::div_cells(bool& possibility_work, int& level_recursion, int& coun
      {
          Matrix B(A.size_line, A.size_column);
          B.ptr_matrix[0][0] = 1 / A.ptr_matrix[0][0];
+         Matrix::count += 1;
          return B;
      }
      else
@@ -463,6 +464,7 @@ Matrix Matrix::div_cells(bool& possibility_work, int& level_recursion, int& coun
      {
          for (int j = 0; j < size_column; j++)
          {
+             Matrix::count += 1;
              C.ptr_matrix[i][j] = ptr_matrix[i][j] - B.ptr_matrix[i][j];
          }
      }
@@ -477,6 +479,7 @@ Matrix Matrix::div_cells(bool& possibility_work, int& level_recursion, int& coun
      {
          for (int j = 0; j < size_column; j++)
          {
+             Matrix::count += 1;
              C.ptr_matrix[i][j] = 0 - ptr_matrix[i][j];
          }
      }
@@ -490,6 +493,7 @@ Matrix Matrix::div_cells(bool& possibility_work, int& level_recursion, int& coun
      {
          for (int j = 0; j < size_column; j++)
          {
+             Matrix::count += 1;
              C.ptr_matrix[i][j] = ptr_matrix[i][j] + B.ptr_matrix[i][j];
          }
      }
@@ -502,6 +506,7 @@ Matrix Matrix::div_cells(bool& possibility_work, int& level_recursion, int& coun
      {
          for (int j = 0; j < size_column; j++)
          {
+             Matrix::count += 1;
              ptr_matrix[i][j] = A.ptr_matrix[i][j];
          }
      }
@@ -519,6 +524,7 @@ Matrix Matrix::div_cells(bool& possibility_work, int& level_recursion, int& coun
                  float S = 0;
                  for (int k = 0; k < size_column; k++)
                  {
+                     Matrix::count += 1;
                      S += ptr_matrix[i][k] * B.ptr_matrix[k][j];
                  }
                  C.ptr_matrix[i][j] = S;
