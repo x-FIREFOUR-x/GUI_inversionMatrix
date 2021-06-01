@@ -118,14 +118,14 @@ void MainWindow::on_pushButton_2_clicked()
 
                     if (ui -> radioButton -> isChecked())           // чи обертати Гаусом
                     {
-                        stats = 0;
-                        Matrix B = A.Gauss(stats);
+                        Matrix::count = 0;
+                        Matrix B = A.Gauss();
 
                         B.round_matrix(round_lengs);
                         write_matrix(B, size);
 
                         inversed = true;
-
+                        stats = Matrix::count;
                         use_method = 1;
 
                     }

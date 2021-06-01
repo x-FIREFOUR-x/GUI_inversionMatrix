@@ -31,7 +31,7 @@ public:
     void round_matrix(int);         // заокруглити елементи матриці
 
     float determinant();                            // отримання визначника матриці
-    Matrix Gauss(int& count_iteration );                                 // обернення матриці методом Гауса
+    Matrix Gauss();                                 // обернення матриці методом Гауса
     Matrix div_cells(bool& possibility_work, int& level_recursion);       // обернення матриці методом розбиття на клітинки
 
     Matrix inversion_order2(Matrix);				// обернення матриці порядку 2

@@ -131,10 +131,9 @@ float Matrix::determinant()
     }
 }
 
-Matrix Matrix::Gauss(int& count_iteration)
+Matrix Matrix::Gauss()
 {
     float det = determinant();
-    count_iteration = 0;
 
     if (size_line == size_column && det != 0)
     {
@@ -146,6 +145,7 @@ Matrix Matrix::Gauss(int& count_iteration)
         {
             for (int j = 0; j < size; j++)
             {
+                Matrix::count++;
                 if (i == j)
                 {
                     E.ptr_matrix[i][j] = 1;
@@ -164,7 +164,7 @@ Matrix Matrix::Gauss(int& count_iteration)
                 int number = i;		// номер підходящого рядка
                 for (int k = i; k < size; k++)		// пошук підходящого рядка
                 {
-                    count_iteration += 1;
+                    Matrix::count++;
                     if (A.ptr_matrix[k][i] != 0)
                     {
                         number = k;
@@ -185,7 +185,7 @@ Matrix Matrix::Gauss(int& count_iteration)
             {
                 A.ptr_matrix[i][j] = A.ptr_matrix[i][j] / coef;
                 E.ptr_matrix[i][j] = E.ptr_matrix[i][j] / coef;
-                count_iteration += 1;
+                Matrix::count++;
             }
 
             for (int k = i + 1; k < size; k++)	// рядок від якого віднімають
@@ -195,7 +195,7 @@ Matrix Matrix::Gauss(int& count_iteration)
                 {
                     A.ptr_matrix[k][z] = A.ptr_matrix[k][z] - (A.ptr_matrix[i][z] * n);
                     E.ptr_matrix[k][z] = E.ptr_matrix[k][z] - (E.ptr_matrix[i][z] * n);
-                    count_iteration += 1;
+                    Matrix::count++;
                 }
 
             }
@@ -210,7 +210,7 @@ Matrix Matrix::Gauss(int& count_iteration)
                 {
                     A.ptr_matrix[k][z] = A.ptr_matrix[k][z] - A.ptr_matrix[i][z] * n;
                     E.ptr_matrix[k][z] = E.ptr_matrix[k][z] - E.ptr_matrix[i][z] * n;
-                    count_iteration += 1;
+                    Matrix::count++;
                 }
             }
         }
@@ -239,6 +239,7 @@ Matrix Matrix::div_cells(bool& possibility_work, int& level_recursion)
         {
             for (int j = 0; j < size_column; j++)
             {
+                Matrix::count++;
                 if (i < size_line - 1)
                 {
                     if (j < size_column - 1)
@@ -374,6 +375,7 @@ Matrix Matrix::div_cells(bool& possibility_work, int& level_recursion)
                     {
                         for (int j = 0; j < size_column; j++)
                         {
+                            Matrix::count++;
                             if (i < size_line - 1)
                             {
                                 if (j < size_column - 1)
