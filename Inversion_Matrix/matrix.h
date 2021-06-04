@@ -35,6 +35,7 @@ public:
 
     Matrix inversion_order2(Matrix);				// обернення матриці порядку 2
     Matrix inversion_order1(Matrix);				// обернення матриці порядку 1
+    Matrix transponation();
 
     Matrix operator-(const Matrix);         // перевизначення оператора віднімання (від матриці відняти матрицю)
     Matrix operator+(const Matrix);         // перевизначення оператора додавання (до матриці додати матрицю)

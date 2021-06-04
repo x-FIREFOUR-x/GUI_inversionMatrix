@@ -147,8 +147,27 @@ void MainWindow::on_pushButton_2_clicked()
                             }
                             else
                             {
-                                QMessageBox:: information(this, "Неможливо виконанати обернення", "Не можливо обернути дану матрицю методом розбиття на клітки, використайте інший метод");
-                                use_method = 0;
+                                //QMessageBox:: information(this, "Неможливо виконанати обернення", "Не можливо обернути дану матрицю методом розбиття на клітки, використайте інший метод");
+                                //use_method = 0;
+
+                                level_recursion = 0;
+                                Matrix T = A.transponation();
+                                Matrix A1 = T * A;
+                                Matrix B1 = A1.div_cells(possibilyty_work, level_recursion);
+                                Matrix B_i = B1 * T;
+                                if (possibilyty_work)
+                                {
+                                    B_i.round_matrix(round_lengs);
+                                    write_matrix(B_i, size);
+                                    inversed = true;
+                                    stats = Matrix::count;
+                                    use_method = 2;
+                                }
+                                else
+                                {
+                                    QMessageBox:: information(this, "Неможливо виконанати обернення", "Не можливо обернути дану матрицю методом розбиття на клітки, використайте інший метод");
+                                    use_method = 0;
+                                }
                             }
                         }
                         else

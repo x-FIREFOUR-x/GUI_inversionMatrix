@@ -541,3 +541,15 @@ Matrix Matrix::div_cells(bool& possibility_work, int& level_recursion)
          return 0;
      }
  }
+Matrix Matrix::transponation()
+{
+    Matrix A(size_line, size_column);
+    for (int i =0; i < size_line; i++ )
+    {
+        for(int j =0; j < size_column; j++)
+        {
+            A.ptr_matrix[i][j] = ptr_matrix[j][i];
+        }
+    }
+    return A;
+}
